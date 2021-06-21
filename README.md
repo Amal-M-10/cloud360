@@ -14,7 +14,7 @@ POST /topic/{topicid}
 POST /topic/{topicid}/comments
 ```
 
-## Installation
+## Installing Dependencies
 run npm install to install all dependencies
 ```bash
 npm install 
@@ -24,6 +24,6 @@ npm install
 docker build -t <image name> <path to dockerfile>
 ```
 ```bash
-docker run --publish <port>:5000 <image>  
+docker run --publish <port>:5000 <image name>  
 ```
 
