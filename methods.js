@@ -9,7 +9,6 @@ function getTopics(res){
             console.log(err);
         }
         else{
-            //rows=JSON.stringify(rows);
             res.status(200).json(rows);
         }
     });
@@ -80,21 +79,34 @@ function addTopic(name,res){
 
  function updateTopic(topicid,name,res){
 
-    db.run('UPDATE topics SET name=? WHERE id=?',[name,topicid],(err)=>{
-        if(err){
+    db.all('SELECT name,id FROM topics WHERE id=?',[topicid],(err,row)=>{
+        
+        if(err || row.length==0){
 
-            console.log(err);
-            res.status(400).send('invalid input, object invalid')
-
+            res.status(400).send('invalid input, object invalid');
         }
-        else
-        {
-            res.status(201).send('item updated');
-        }
-    })
+        else{
 
+            db.all('UPDATE topics SET name=? WHERE id=?',[name,topicid],(err)=>{
+                if(err){
+
+                    console.log(err);
+                    res.status(400).send('invalid input, object invalid');
+        
+                }
+                else{
+
+                    res.status(201).send('item updated');
+                }
+            });  
+        }
+    });
 
 }
+   
+        
+       
+       
 
 module.exports.addComments=addComments;
 module.exports.addTopic=addTopic;
