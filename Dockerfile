@@ -4,7 +4,6 @@ WORKDIR /app
 
 COPY package.json  /app/
 
-EXPOSE 9000 
 
 RUN npm install
 
